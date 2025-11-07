@@ -61,8 +61,8 @@ browser = None
 cj = None
 use_continuous_lecture_numbers = False
 chapter_filter = None
-YTDLP_PATH = os.path.join(os.path.dirname(sys.executable), "yt-dlp.exe")
-
+# YTDLP_PATH = os.path.join(os.path.dirname(sys.executable), "yt-dlp.exe")
+YTDLP_PATH = "yt-dlp.exe"
 
 def deEmojify(inputStr: str):
     return demoji.replace(inputStr, "")
