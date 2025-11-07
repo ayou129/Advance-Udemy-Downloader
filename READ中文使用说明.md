@@ -46,13 +46,13 @@ python main.py -c <课程URL> -b <Token> --download-captions -l en --skip-lectur
 python main.py -c <课程URL> -b <Token> --download-assets --skip-lectures
 
 # *++
-python main.py -c https://www.udemy.com/course/yolo-performance-improvement-masterclass/learn/lecture/40418738#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 --download-captions -l en --download-assets --skip-lectures  --chapter "6"
+python main.py -c xxxxxxx -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 --download-captions -l en --download-assets --skip-lectures  --chapter "6"
 
 # 下载所有课程+字幕+课件文件
 ## 如果失败，可以增加 --skip-hls 参数，直连mp4
 ## --chapter "6" 指定章节下载
 python main.py -c url_id -b <你的Bearer Token> -q 1080 --download-captions -l en --download-assets
-python main.py -c https://www.udemy.com/course/yolo-performance-improvement-masterclass/learn/lecture/40418738#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets --chapter "6"
+python main.py -c https://www.udemy.com/course/ros2-nav2-stack/learn/lecture/35488760#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets
 
 # 融合课程+字幕
 ## 测试单个视频（指定目录，不删除原文件）
@@ -66,6 +66,21 @@ merge_subs.bat "out_dir\ros2-advanced-core-concepts" -d
 
 
 ## 已经下载的记录
-1. ROS2高级 https://www.udemy.com/course/ros2-advanced-core-concepts/learn/lecture/40028718#content
-2. JetsonNano https://www.udemy.com/course/jetson-nano-boot-camp/learn/lecture/29071724#overview
-3. https://www.udemy.com/course/yolo-performance-improvement-masterclass/learn/lecture/40418738#overview
+- Edouard Renard **加密**
+    - [已下载] ROS2 Level https://www.udemy.com/course/ros2-for-beginners/learn/lecture/20260476#overview
+    - ROS2 Level 2 https://www.udemy.com/course/ros2-tf-urdf-rviz-gazebo/learn/lecture/38688920#overview
+    - [已下载] ROS2 Level 3 https://www.udemy.com/course/ros2-advanced-core-concepts/learn/lecture/40028718#content
+    - [下载中] ROS2 Nav2+SLAM https://www.udemy.com/course/ros2-nav2-stack/learn/lecture/35488760#overview
+- [已下载] JetsonNano https://www.udemy.com/course/jetson-nano-boot-camp/learn/lecture/29071724#overview
+- [已下载] https://www.udemy.com/course/yolo-performance-improvement-masterclass/learn/lecture/40418738#overview
+- [已下载] https://www.udemy.com/course/mastering-gpu-parallel-programming-with-cuda/learn/lecture/33558628#overview
+- YOLOV11 [最推荐第一个]
+    - **加密** https://www.udemy.com/course/yolo-masterclass-deep-learning-computer-vision-course/learn/lecture/34239592#overview
+    - 训练到部署 https://www.udemy.com/course/learn-tensorflow-pytorch-tensorrt-onnx-from-scratch/learn/lecture/38038938#overview
+        - ONNX 和 TensorRT 优化边缘设备上的深度学习模型
+- opencv + 深度学习
+    - https://www.udemy.com/course/python-for-computer-vision-with-opencv-and-deep-learning
+
+### 低优先级
+- 树莓派 ROS2
+    - https://www.udemy.com/course/robotics-with-ros-real-robot-using-raspberry-pi-and-opencv/
