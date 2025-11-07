@@ -38,15 +38,21 @@ yt-dlp -v
 
 ## 使用
 ~~~sh
-# 使用1
-python main.py -c https://www.udemy.com/course/ros2-advanced-core-concepts/learn/lecture/40028718#content -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080
-
-
 # 仅下载字幕文件
 python main.py -c <课程URL> -b <Token> --download-captions -l en --skip-lectures
 
-# 下载所有课程+字幕文件
-python main.py -c https://www.udemy.com/course/ros2-advanced-core-concepts/learn/lecture/40028718#content -b <你的Bearer Token> --download-captions -l en
+
+# 仅下载课件文件
+python main.py -c <课程URL> -b <Token> --download-assets --skip-lectures
+
+# *++
+python main.py -c https://www.udemy.com/course/yolo-performance-improvement-masterclass/learn/lecture/40418738#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 --download-captions -l en --download-assets --skip-lectures  --chapter "6"
+
+# 下载所有课程+字幕+课件文件
+## 如果失败，可以增加 --skip-hls 参数，直连mp4
+## --chapter "6" 指定章节下载
+python main.py -c url_id -b <你的Bearer Token> -q 1080 --download-captions -l en --download-assets
+python main.py -c https://www.udemy.com/course/yolo-performance-improvement-masterclass/learn/lecture/40418738#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets --chapter "6"
 
 # 融合课程+字幕
 ## 测试单个视频（指定目录，不删除原文件）
@@ -57,3 +63,9 @@ merge_subs.bat "out_dir\ros2-advanced-core-concepts" -t -d
 merge_subs.bat "out_dir\ros2-advanced-core-concepts" -d
 
 ~~~
+
+
+## 已经下载的记录
+1. ROS2高级 https://www.udemy.com/course/ros2-advanced-core-concepts/learn/lecture/40028718#content
+2. JetsonNano https://www.udemy.com/course/jetson-nano-boot-camp/learn/lecture/29071724#overview
+3. https://www.udemy.com/course/yolo-performance-improvement-masterclass/learn/lecture/40418738#overview
