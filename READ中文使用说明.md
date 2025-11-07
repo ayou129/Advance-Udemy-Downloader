@@ -55,6 +55,8 @@ python main.py -c https://www.udemy.com/course/yolo-masterclass-deep-learning-co
 python main.py -c url_id -b <你的Bearer Token> -q 1080 --download-captions -l en --download-assets
 python main.py -c https://www.udemy.com/course/yolo-masterclass-deep-learning-computer-vision-course/learn/lecture/34239592#overview  -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets --chapter "11" -o E:/2
 
+
+！！！！下面的sh未经测试，因为额外发现了很多播放器支持字幕翻译
 # 融合课程+字幕
 ## 测试单个视频（指定目录，不删除原文件）
 merge_subs.bat "out_dir\ros2-advanced-core-concepts" -t
