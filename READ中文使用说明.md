@@ -2,11 +2,11 @@
 
 ~~~sh
 # 1. 目录: C:\core\common 下载所有依赖
-## https://github.com/yt-dlp/yt-dlp/releases
+## MacosM1 选择 osx-arm64
 ## https://www.ffmpeg.org/
 ## https://github.com/aria2/aria2/
 ## https://github.com/shaka-project/shaka-packager/releases/latest
-## https://github.com/yt-dlp/yt-dlp/
+## https://github.com/yt-dlp/yt-dlp/releases
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
