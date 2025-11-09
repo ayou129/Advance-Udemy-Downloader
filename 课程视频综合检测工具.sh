@@ -15,7 +15,8 @@ set -uo pipefail  # 移除 -e 避免意外退出
 # ============================================
 # 配置参数
 # ============================================
-TIMEOUT=5  # ffmpeg 解码超时时间（秒），可调整为 8
+TIMEOUT=15  # ffmpeg 解码超时时间（秒），并发时需要更长时间
+MAX_RETRIES=3  # 解码失败时的最大重试次数
 VIDEO_FORMATS=("mp4" "mkv" "avi" "mov" "m4v" "wmv" "webm" "flv" "ts")
 REPORT_FILE="检测报告_$(date +%Y%m%d_%H%M%S).txt"
 
@@ -69,7 +70,8 @@ get_cpu_cores() {
         parallel_jobs=2
     fi
 
-    echo $parallel_jobs
+    echo 8
+    # echo $((cores / 2))
 }
 
 # ============================================
@@ -140,31 +142,55 @@ get_file_size() {
 }
 
 # ============================================
-# 带超时的命令执行（跨平台）
+# 带超时的命令执行（并发安全版本）
 # ============================================
 run_with_timeout() {
     local timeout=$1
     shift
     local cmd=("$@")
 
-    # 在后台运行命令
-    "${cmd[@]}" &> /dev/null &
+    # 为每个调用创建唯一的临时文件
+    local status_file="${TEMP_DIR}/cmd_status_$$_${RANDOM}.tmp"
+
+    # 在子shell中运行命令，捕获退出码
+    (
+        "${cmd[@]}" &> /dev/null
+        echo $? > "$status_file"
+    ) &
     local pid=$!
 
     # 等待命令完成或超时
-    local count=0
-    while kill -0 $pid 2>/dev/null; do
-        if [ $count -ge $timeout ]; then
-            kill -9 $pid 2>/dev/null || true
+    local elapsed=0
+    while [ $elapsed -lt $timeout ]; do
+        # 检查进程是否还在运行
+        if ! kill -0 $pid 2>/dev/null; then
+            # 进程已结束
             wait $pid 2>/dev/null || true
-            return 124  # 超时返回码
+
+            # 读取退出码
+            if [ -f "$status_file" ]; then
+                local exit_code=$(cat "$status_file" 2>/dev/null || echo 1)
+                rm -f "$status_file"
+                return $exit_code
+            fi
+
+            # 如果没有状态文件，返回0（成功）
+            return 0
         fi
+
         sleep 1
-        ((count++))
+        ((elapsed++))
     done
 
-    wait $pid
-    return $?
+    # 超时：杀死进程及其子进程
+    # 尝试杀死进程组（负PID）
+    kill -TERM -$pid 2>/dev/null || kill -TERM $pid 2>/dev/null || true
+    sleep 1
+    kill -9 -$pid 2>/dev/null || kill -9 $pid 2>/dev/null || true
+    wait $pid 2>/dev/null || true
+
+    rm -f "$status_file"
+    return 124  # 超时返回码
 }
 
 # ============================================
@@ -187,8 +213,26 @@ check_video_integrity() {
         return 2  # DRM 或严重损坏（无法读取时长）
     fi
 
-    # 3. 使用 ffmpeg 解码前 1 秒验证完整性
-    if ! run_with_timeout $TIMEOUT ffmpeg -v error -i "$video_file" -t 1 -f null -; then
+    # 3. 使用 ffmpeg 解码前 1 秒验证完整性（支持重试）
+    local retry_count=0
+    local decode_success=false
+
+    while [ $retry_count -lt $MAX_RETRIES ]; do
+        if run_with_timeout $TIMEOUT ffmpeg -v error -i "$video_file" -t 1 -f null -; then
+            decode_success=true
+            break
+        fi
+
+        ((retry_count++))
+
+        # 如果还有重试机会，等待2秒后重试
+        if [ $retry_count -lt $MAX_RETRIES ]; then
+            sleep 2
+        fi
+    done
+
+    # 3次重试都失败才标记为损坏
+    if [ "$decode_success" = false ]; then
         return 3  # 下载不完整/损坏
     fi
 

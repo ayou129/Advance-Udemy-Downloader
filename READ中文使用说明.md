@@ -84,6 +84,10 @@ python main.py -c https://www.udemy.com/course/building-web-applications-with-go
 
 python main.py -c https://www.udemy.com/course/tensorflow-developer-certificate-machine-learning-zero-to-mastery/learn/lecture/25124554#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets -o E:/2 -cd 30
 
+python main.py -c https://www.udemy.com/course/leetcode-in-go-algorithms-coding-interview-questions/learn/lecture/41346196#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets -o E:/2 -cd 30
+
+python main.py -c https://www.udemy.com/course/deeplearning/learn/lecture/6743222#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets -cd 30
+
 
 ！！！！下面的sh未经测试，因为额外发现了很多播放器支持字幕翻译
 # 融合课程+字幕
