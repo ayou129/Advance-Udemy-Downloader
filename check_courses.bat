@@ -3,7 +3,7 @@ chcp 65001 >nul
 setlocal enabledelayedexpansion
 
 echo ================================================================================
-echo 课程视频完整性检查工具
+echo                        Course Video Integrity Checker
 echo ================================================================================
 echo.
 
@@ -13,131 +13,144 @@ set missing_subs=0
 set orphan_subs=0
 set zero_byte_videos=0
 
-echo 正在扫描视频文件...
+echo Scanning video files...
 echo.
 
-REM 创建临时文件
+REM Create temp files
 set temp_videos=%temp%\videos_list.txt
 set temp_subs=%temp%\subs_list.txt
-set temp_report=%temp%\report.txt
+set temp_report=%temp%\course_check_report.txt
 
-REM 清空临时文件
+REM Clear temp files
 type nul > %temp_videos%
 type nul > %temp_subs%
 type nul > %temp_report%
 
-REM 查找所有视频和字幕文件
+REM Count all video and subtitle files
 for /r %%f in (*.mp4) do (
     set /a total_videos+=1
-    echo %%f>> %temp_videos%
 )
 
 for /r %%f in (*_en.srt) do (
     set /a total_subtitles+=1
-    echo %%f>> %temp_subs%
 )
 
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-echo 📊 统计信息
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-echo   总视频数: !total_videos!
-echo   总字幕数: !total_subtitles!
+echo --------------------------------------------------------------------------------
+echo  Statistics
+echo --------------------------------------------------------------------------------
+echo   Total Videos   : !total_videos!
+echo   Total Subtitles: !total_subtitles!
 echo.
 
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-echo 🔍 检查问题中...
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo --------------------------------------------------------------------------------
+echo  Checking Issues...
+echo --------------------------------------------------------------------------------
 echo.
 
-REM 检查0字节视频文件
-echo [严重] 检查0字节视频文件...
+REM Check 0-byte video files
+echo [CRITICAL] Checking 0-byte video files...
+setlocal disabledelayedexpansion
 for /r %%f in (*.mp4) do (
     if %%~zf==0 (
+        setlocal enabledelayedexpansion
         set /a zero_byte_videos+=1
-        echo   ❌ 0字节视频: %%f
-        echo [严重] 0字节视频: %%f >> %temp_report%
+        echo   [X] 0-byte video: %%f
+        echo [CRITICAL] 0-byte video: %%f >> %temp_report%
+        endlocal
     )
 )
+endlocal
 if !zero_byte_videos!==0 (
-    echo   ✅ 未发现0字节视频
+    echo   [OK] No 0-byte videos found
 )
 echo.
 
-REM 检查有字幕但没视频的情况（严重问题）
-echo [严重] 检查孤立字幕文件（有字幕但无视频）...
+REM Check orphaned subtitles (subtitle without video)
+echo [CRITICAL] Checking orphaned subtitles (subtitle without video)...
+set orphan_count=0
+setlocal disabledelayedexpansion
 for /r %%f in (*_en.srt) do (
+    setlocal enabledelayedexpansion
     set "sub_file=%%f"
     set "sub_name=%%~nf"
-    REM 移除 _en 后缀
     set "video_name=!sub_name:~0,-3!"
     set "video_path=%%~dpf!video_name!.mp4"
 
     if not exist "!video_path!" (
-        set /a orphan_subs+=1
-        echo   ❌ 孤立字幕: %%f
-        echo [严重] 孤立字幕（无对应视频）: %%f >> %temp_report%
+        set /a orphan_count+=1
+        echo   [X] Orphaned subtitle: %%f
+        echo [CRITICAL] Orphaned subtitle (no video): %%f >> %temp_report%
     )
+    endlocal
 )
+endlocal
+set /a orphan_subs=!orphan_count!
 if !orphan_subs!==0 (
-    echo   ✅ 未发现孤立字幕
+    echo   [OK] No orphaned subtitles
 )
 echo.
 
-REM 检查有视频但没字幕的情况（警告）
-echo [警告] 检查缺少字幕的视频...
+REM Check videos without subtitles
+echo [WARNING] Checking videos without subtitles...
+set missing_count=0
+setlocal disabledelayedexpansion
 for /r %%f in (*.mp4) do (
+    setlocal enabledelayedexpansion
     set "video_file=%%f"
     set "video_name=%%~nf"
     set "sub_path=%%~dpf!video_name!_en.srt"
 
     if not exist "!sub_path!" (
-        set /a missing_subs+=1
-        if !missing_subs! LEQ 10 (
-            echo   ⚠️  缺少字幕: %%f
+        set /a missing_count+=1
+        if !missing_count! LEQ 10 (
+            echo   [!] Missing subtitle: %%f
         )
-        echo [警告] 缺少字幕: %%f >> %temp_report%
+        echo [WARNING] Missing subtitle: %%f >> %temp_report%
     )
+    endlocal
 )
+endlocal
+set /a missing_subs=!missing_count!
 if !missing_subs!==0 (
-    echo   ✅ 所有视频都有字幕
+    echo   [OK] All videos have subtitles
 ) else (
     if !missing_subs! GTR 10 (
-        echo   ... 还有 !missing_subs! 个视频缺少字幕（仅显示前10个）
+        echo   ... and !missing_subs! more videos without subtitles (showing first 10 only)
     )
 )
 echo.
 
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-echo 📋 检查结果汇总
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo ================================================================================
+echo  Summary Report
+echo ================================================================================
 echo.
-echo   ❌ 严重问题:
-echo      - 0字节视频: !zero_byte_videos! 个
-echo      - 孤立字幕（无视频）: !orphan_subs! 个
+echo   [CRITICAL ISSUES]
+echo      - 0-byte videos        : !zero_byte_videos!
+echo      - Orphaned subtitles   : !orphan_subs!
 echo.
-echo   ⚠️  警告:
-echo      - 缺少字幕的视频: !missing_subs! 个
+echo   [WARNINGS]
+echo      - Missing subtitles    : !missing_subs!
 echo.
 
 if !zero_byte_videos!==0 if !orphan_subs!==0 (
-    echo   ✅ 没有严重问题，视频文件完整！
+    echo   [OK] No critical issues found. All video files are complete!
 ) else (
-    echo   ⚠️  发现严重问题，请检查上述文件！
+    echo   [!] Critical issues detected! Please check the files above.
 )
 
 echo.
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-echo 详细报告已保存到: %temp_report%
-echo ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo ================================================================================
+echo Detailed report saved to: %temp_report%
+echo ================================================================================
 echo.
 
-REM 询问是否打开详细报告
-set /p open_report="是否打开详细报告？(Y/N): "
+REM Ask to open detailed report
+set /p open_report="Open detailed report? (Y/N): "
 if /i "!open_report!"=="Y" (
     notepad %temp_report%
 )
 
-REM 清理临时文件（保留报告）
+REM Clean up temp files (keep report)
 del %temp_videos% 2>nul
 del %temp_subs% 2>nul
 
