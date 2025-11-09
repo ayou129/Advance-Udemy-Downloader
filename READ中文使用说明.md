@@ -2,11 +2,16 @@
 
 ~~~sh
 # 1. 目录: C:\core\common 下载所有依赖
-## MacosM1 选择 osx-arm64
 ## https://www.ffmpeg.org/
 ## https://github.com/aria2/aria2/
 ## https://github.com/shaka-project/shaka-packager/releases/latest
 ## https://github.com/yt-dlp/yt-dlp/releases
+
+## MacosM1 选择 osx-arm64
+brew install aria2
+brew install yt-dlp
+sudo mv ~/Downloads/packager-osx-arm64 /opt/homebrew/bin/shaka-packager
+sudo chmod +x /opt/homebrew/bin/shaka-packager
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
@@ -18,17 +23,29 @@ Mode                 LastWriteTime         Length Name
 # 2. 将 C:\core\common 放进环境变量中
 
 # 3. 测试
-aria2c -v
-packager --version
 ffmpeg -version
-yt-dlp -v
+aria2c -v
+shaka-packager --version
+yt-dlp --version
 
 # 4. 将 main.py 文件中的 替换
-- YTDLP_PATH = os.path.join(os.path.dirname(sys.executable), "yt-dlp.exe")
-+ YTDLP_PATH = "yt-dlp.exe"
+- YTDLP_PATH = os.path.join(os.path.dirname(sys.executable), "yt-dlp")
++ YTDLP_PATH = "yt-dlp"
 ~~~
 
+
 ## 前置2
+~~~sh
+conda create -n download_udemy python=3.13 -y
+conda activate download_udemy
+
+python --version
+pip install -r requirements.txt
+
+conda deactivate
+~~~
+
+## 前置3
 1. 使用 火狐浏览器 登录 google 和 udemy 账号
 2. 火狐浏览器 安装插件(可以看 README.md 文件)
     - Mozilla Firefox: [Cookies Editor](https://cookie-editor.com/)
@@ -66,6 +83,10 @@ python main.py -c https://www.udemy.com/course/go-the-complete-guide/learn/lectu
 python main.py -c https://www.udemy.com/course/building-web-applications-with-go-intermediate-level/learn/lecture/27057462#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets -o E:/2 -cd 20
 
 python main.py -c https://www.udemy.com/course/tensorflow-developer-certificate-machine-learning-zero-to-mastery/learn/lecture/25124554#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets -o E:/2 -cd 30
+
+python main.py -c https://www.udemy.com/course/leetcode-in-go-algorithms-coding-interview-questions/learn/lecture/41346196#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets -o E:/2 -cd 30
+
+python main.py -c https://www.udemy.com/course/deeplearning/learn/lecture/6743222#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets -cd 30
 
 
 ！！！！下面的sh未经测试，因为额外发现了很多播放器支持字幕翻译
