@@ -105,7 +105,7 @@ merge_subs.bat "out_dir\ros2-advanced-core-concepts" -d
         - **加密** "b14d9596b7f04d44ab2a7af7f76ff7ad":"758b03a1372819f5b73104f8dd206b75",
     - [已下载] Go Stripe收款 https://www.udemy.com/course/building-web-applications-with-go-intermediate-level/learn/lecture/27057462#overview
         - **加密** "1b46b97ac137466f89c0a952e67439e7":"31ea375bac00fda8cc49fe7455a84185",
-    - [未下载] 算法 https://www.udemy.com/course/leetcode-in-go-algorithms-coding-interview-questions/learn/lecture/41346196#overview
+    - [已下载] 算法 https://www.udemy.com/course/leetcode-in-go-algorithms-coding-interview-questions/learn/lecture/41346196#overview
         - **似乎没加密** 50 days of LeetCode in GO: Algorithms Coding Interview
 - 深度学习
     - [下载中] TensorFlow | https://www.udemy.com/course/tensorflow-developer-certificate-machine-learning-zero-to-mastery/learn/lecture/25124554#overview
