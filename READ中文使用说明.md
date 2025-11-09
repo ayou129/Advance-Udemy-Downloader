@@ -65,6 +65,8 @@ python main.py -c https://www.udemy.com/course/go-the-complete-guide/learn/lectu
 
 python main.py -c https://www.udemy.com/course/building-web-applications-with-go-intermediate-level/learn/lecture/27057462#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets -o E:/2 -cd 20
 
+python main.py -c https://www.udemy.com/course/tensorflow-developer-certificate-machine-learning-zero-to-mastery/learn/lecture/25124554#overview -b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEzNzQ5MjE5LCJlbWFpbCI6Imd1b3hpbmxlZTEyOUBnbWFpbC5jb20iLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJncm91cF9pZHMiOltdfQ.OZcDRckR-jvuEK2G7a7GljJnBZaNCBppYXq26e1nPT4 -q 1080 --download-captions -l en --download-assets -o E:/2 -cd 30
+
 
 ！！！！下面的sh未经测试，因为额外发现了很多播放器支持字幕翻译
 # 融合课程+字幕
@@ -101,14 +103,14 @@ merge_subs.bat "out_dir\ros2-advanced-core-concepts" -d
 - go
     - [已下载] 基础 Go:完整开发者指南 https://www.udemy.com/course/go-the-complete-guide/learn/lecture/40773606#overview
         - **加密** "b14d9596b7f04d44ab2a7af7f76ff7ad":"758b03a1372819f5b73104f8dd206b75",
-    - [下载中] Go Stripe收款 https://www.udemy.com/course/building-web-applications-with-go-intermediate-level/learn/lecture/27057462#overview
+    - [已下载] Go Stripe收款 https://www.udemy.com/course/building-web-applications-with-go-intermediate-level/learn/lecture/27057462#overview
         - **加密** "1b46b97ac137466f89c0a952e67439e7":"31ea375bac00fda8cc49fe7455a84185",
-    - [算法] https://www.udemy.com/course/leetcode-in-go-algorithms-coding-interview-questions/learn/lecture/41346196#overview
+    - [未下载] 算法 https://www.udemy.com/course/leetcode-in-go-algorithms-coding-interview-questions/learn/lecture/41346196#overview
         - **似乎没加密** 50 days of LeetCode in GO: Algorithms Coding Interview
 - 深度学习
-    - TensorFlow | https://www.udemy.com/course/tensorflow-developer-certificate-machine-learning-zero-to-mastery/learn/lecture/25124554#overview
+    - [下载中] TensorFlow | https://www.udemy.com/course/tensorflow-developer-certificate-machine-learning-zero-to-mastery/learn/lecture/25124554#overview
         - **加密** "d6c03769a0a94bdcb66fcc3e7b47caa0":"1b221ba2baf5bf94a7260fd88d021269",
-    - https://www.udemy.com/course/deeplearning/learn/lecture/6743222#overview
+    - [未下载] https://www.udemy.com/course/deeplearning/learn/lecture/6743222#overview
         - 深度学习A-Z 2025:神经网络、人工智能与ChatGPT奖
         - **加密** "6487799dec3d44adb6c68bed5ea07689":"b29e5607c304dbaffde531a12e29046c",
 - 树莓派 ROS2
