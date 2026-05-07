@@ -134,3 +134,16 @@ temp/
 output/
 
 !包/windows10/*
+# === macOS / Windows / editor 临时文件 (auto-managed) ===
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.swp
+*.swo
+*~
